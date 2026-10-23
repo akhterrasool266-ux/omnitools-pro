@@ -1,0 +1,6 @@
+{
+  "name": "OmniTools Pro - High Search Web Tools & SEO Suite",
+  "description": "Fast, SEO-optimized web tools suite with automated sitemap generator, meta tag previewer, image compressor, JSON validator, and AdSense-ready monetization structure.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
