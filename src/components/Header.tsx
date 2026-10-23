@@ -71,43 +71,42 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
-      {/* Top Banner Notice: SEO & Crawler Indexation Status */}
-      <div className="bg-gradient-to-r from-indigo-700 via-indigo-600 to-purple-700 text-white text-[11px] font-medium py-1.5 px-4 text-center flex items-center justify-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Google Crawler Optimized • Live Automated Sitemap Generator • AdSense Monetization Ready</span>
-        <button
-          onClick={onToggleMockAds}
-          className="ml-2 px-2 py-0.5 rounded-full bg-white/20 hover:bg-white/30 text-[10px] uppercase font-bold tracking-wider cursor-pointer"
-        >
-          {isMockAdEnabled ? 'Ad Placements: Active' : 'Ad Placements: Hidden'}
-        </button>
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-3">
-          {/* Logo */}
-          <div
-            onClick={() => {
-              onSelectTool(TOOLS_DATA[0].id);
-              onSelectCategory('all');
-            }}
-            className="flex items-center gap-2.5 cursor-pointer select-none shrink-0"
-          >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-md">
-              <Wrench className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 dark:text-white">
-                  OmniTools
-                </span>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/70 dark:text-indigo-300">
-                  PRO
-                </span>
+          <div className="flex items-center gap-2">
+            {/* Mobile menu button on the LEFT */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 sm:hidden rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer shrink-0"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+
+            {/* Logo */}
+            <div
+              onClick={() => {
+                onSelectTool(TOOLS_DATA[0].id);
+                onSelectCategory('all');
+              }}
+              className="flex items-center gap-2.5 cursor-pointer select-none shrink-0"
+            >
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-md">
+                <Wrench className="w-5 h-5" />
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:block">
-                High Search Free Web Tools Suite
-              </p>
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 dark:text-white">
+                    OmniTools
+                  </span>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/70 dark:text-indigo-300">
+                    PRO
+                  </span>
+                </div>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:block">
+                  High Search Free Web Tools Suite
+                </p>
+              </div>
             </div>
           </div>
 
@@ -167,22 +166,8 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
 
-          {/* Quick Controls */}
+          {/* Quick Controls on Right */}
           <div className="flex items-center gap-2">
-            {/* AdSense Mock Toggle */}
-            <button
-              onClick={onToggleMockAds}
-              className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors border ${
-                isMockAdEnabled
-                  ? 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-800'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700'
-              }`}
-              title="Toggle AdSense monetization preview"
-            >
-              <DollarSign className="w-3.5 h-3.5" />
-              <span>AdSense: {isMockAdEnabled ? 'ON' : 'OFF'}</span>
-            </button>
-
             {/* Language Selector */}
             <div className="relative">
               <select
@@ -199,21 +184,14 @@ export const Header: React.FC<HeaderProps> = ({
               </select>
             </div>
 
-            {/* Dark Mode */}
+            {/* Dark Mode Toggle */}
             <button
               onClick={onToggleDarkMode}
               className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
               title="Toggle theme"
+              aria-label="Toggle dark mode"
             >
-              {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
-            </button>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 sm:hidden rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isDarkMode ? <Sun className="w-4.5 h-4.5 text-amber-400" /> : <Moon className="w-4.5 h-4.5" />}
             </button>
           </div>
         </div>

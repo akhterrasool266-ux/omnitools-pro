@@ -57,7 +57,14 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState<ToolCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isMockAdEnabled, setIsMockAdEnabled] = useState<boolean>(true);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('omnitools_theme');
+      if (saved) return saved === 'dark';
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
   const [currentLang, setCurrentLang] = useState<SupportedLang>('en');
   const [legalModal, setLegalModal] = useState<LegalModalType>(null);
 
@@ -72,12 +79,18 @@ export default function App() {
     }
   }, [activeTool]);
 
-  // Dark mode effect
+  // Dark mode effect with localStorage persistence
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
+      try {
+        localStorage.setItem('omnitools_theme', 'dark');
+      } catch {}
     } else {
       document.documentElement.classList.remove('dark');
+      try {
+        localStorage.setItem('omnitools_theme', 'light');
+      } catch {}
     }
   }, [isDarkMode]);
 
@@ -354,21 +367,6 @@ export default function App() {
               isMockAdEnabled={isMockAdEnabled}
               className="sticky top-24"
             />
-
-            {/* High-CPC Niche Insights Box */}
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-slate-900 dark:to-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 text-xs space-y-2">
-              <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
-                <TrendingUp className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                <span>SEO &amp; AdSense Strategy</span>
-              </div>
-              <p className="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
-                Tools targeting financial calculators, XML sitemaps, and media compression enjoy 3x to 5x higher AdSense RPM compared to generic blogs.
-              </p>
-              <div className="pt-2 border-t border-indigo-200/60 dark:border-indigo-900/60 text-[11px] text-indigo-700 dark:text-indigo-400 font-semibold flex items-center justify-between">
-                <span>Fast Indexation Active</span>
-                <span className="font-mono">Googlebot 200 OK</span>
-              </div>
-            </div>
           </aside>
         </div>
       </main>
